@@ -15,8 +15,9 @@ My home-made application. Time Tracker. This app may help you with your producti
 3. <b>[✓]</b> ~Data organization (how to save and organize data)~
 4. <b>[In process]</b> - To develop statistics diagrams ("Today" button)
 5. Possibility to view diagrams for any day of any month ("Calendar" button)
-6. Redesign
-7. Dark / white theme
+6. Testing Stage
+7. Redesign
+8. Dark / white theme
 
 ## Author
   - **Daniil Maslov** -

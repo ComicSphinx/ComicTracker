@@ -12,7 +12,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
     timerIsEnabled = False
     time = QTime(0,0,0)
     timer = QTimer()
-    databaseFileName = "database.db"
+    databaseFilePath = "database/database.db"
 
     def __init__(self):
         super().__init__()
@@ -27,7 +27,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.timer.timeout.connect(self.showTime)
 
     def verifyDatabaseExist(self):
-        if (os.path.exists(self.databaseFileName)):
+        if (os.path.exists(self.databaseFilePath)):
             return 1
         else:
             return 0
@@ -74,7 +74,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def addDataToDB(self, whatWillYouDoString, minutes):
         """ Connect to database """
-        connection = sqlite3.connect(self.databaseFileName)
+        connection = sqlite3.connect(self.databaseFilePath)
         cursor = connection.cursor()
         """ Build a request to the database"""
         request = self.buildRequestString(whatWillYouDoString, minutes)
@@ -95,7 +95,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def createDB(self):
         """ Create database and connect to it """
-        connection = sqlite3.connect(self.databaseFileName)
+        connection = sqlite3.connect(self.databaseFilePath)
         cursor = connection.cursor()
         """ Create table in database """
         cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")

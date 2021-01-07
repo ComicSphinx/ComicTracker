@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'Desing.ui'
+# Form implementation generated from reading ui file 'design.ui'
 #
 # Created by: PyQt5 UI code generator 5.15.2
 #
@@ -25,7 +25,7 @@ class Ui_MainWindow(object):
         self.todayButton.setMaximumSize(QtCore.QSize(60, 100))
         self.todayButton.setObjectName("todayButton")
         self.gridLayout.addWidget(self.todayButton, 2, 0, 1, 1)
-        self.label = QtWidgets.QLabel(self.centralwidget)
+        self.clock = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily("Lucida Sans")
         font.setPointSize(25)
@@ -36,19 +36,19 @@ class Ui_MainWindow(object):
         font.setStrikeOut(False)
         font.setKerning(True)
         font.setStyleStrategy(QtGui.QFont.PreferDefault)
-        self.label.setFont(font)
-        self.label.setLayoutDirection(QtCore.Qt.LeftToRight)
-        self.label.setTextFormat(QtCore.Qt.AutoText)
-        self.label.setAlignment(QtCore.Qt.AlignCenter)
-        self.label.setObjectName("label")
-        self.gridLayout.addWidget(self.label, 0, 0, 1, 5)
-        self.textEdit = QtWidgets.QTextEdit(self.centralwidget)
-        self.textEdit.setMaximumSize(QtCore.QSize(150, 40))
+        self.clock.setFont(font)
+        self.clock.setLayoutDirection(QtCore.Qt.LeftToRight)
+        self.clock.setTextFormat(QtCore.Qt.AutoText)
+        self.clock.setAlignment(QtCore.Qt.AlignCenter)
+        self.clock.setObjectName("clock")
+        self.gridLayout.addWidget(self.clock, 0, 0, 1, 5)
+        self.whatWillYouDo = QtWidgets.QTextEdit(self.centralwidget)
+        self.whatWillYouDo.setMaximumSize(QtCore.QSize(150, 40))
         font = QtGui.QFont()
-        font.setFamily("MS UI Gothic")
-        self.textEdit.setFont(font)
-        self.textEdit.setObjectName("textEdit")
-        self.gridLayout.addWidget(self.textEdit, 1, 2, 1, 1)
+        font.setFamily("MS Reference Sans Serif")
+        self.whatWillYouDo.setFont(font)
+        self.whatWillYouDo.setObjectName("whatWillYouDo")
+        self.gridLayout.addWidget(self.whatWillYouDo, 1, 2, 1, 1)
         self.startButton = QtWidgets.QPushButton(self.centralwidget)
         self.startButton.setMinimumSize(QtCore.QSize(150, 40))
         self.startButton.setMaximumSize(QtCore.QSize(300, 40))
@@ -75,11 +75,22 @@ class Ui_MainWindow(object):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ComicTracker"))
         self.todayButton.setText(_translate("MainWindow", "Today"))
-        self.label.setText(_translate("MainWindow", "00:00:00"))
-        self.textEdit.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
+        self.clock.setText(_translate("MainWindow", "00:00:00"))
+        self.whatWillYouDo.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS UI Gothic\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\';\">What are you doing?</span></p></body></html>"))
+"</style></head><body style=\" font-family:\'MS Reference Sans Serif\'; font-size:8.25pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS UI Gothic\';\"><br /></p></body></html>"))
+        self.whatWillYouDo.setPlaceholderText(_translate("MainWindow", "What will you do?"))
         self.startButton.setText(_translate("MainWindow", "Start"))
         self.calendarButton.setText(_translate("MainWindow", "Calendar"))
+
+
+if __name__ == "__main__":
+    import sys
+    app = QtWidgets.QApplication(sys.argv)
+    MainWindow = QtWidgets.QMainWindow()
+    ui = Ui_MainWindow()
+    ui.setupUi(MainWindow)
+    MainWindow.show()
+    sys.exit(app.exec_())

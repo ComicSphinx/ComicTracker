@@ -73,16 +73,15 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
             return minutes
 
     def addDataToDB(self, whatWillYouDoString, minutes):
-        """ Connect to database """
-        connection = sqlite3.connect(self.databaseFilePath)
-        cursor = connection.cursor()
-        """ Build a request to the database"""
-        request = self.buildRequestString(whatWillYouDoString, minutes)
-        """ Add data to db """
-        cursor.execute(request)
-        """ Save changes """
-        connection.commit()
-        connection.close()
+        if (minutes > 0):
+            connection, cursor = self.connectDB()
+            """ Build a request to the database"""
+            request = self.buildRequestString(whatWillYouDoString, minutes)
+            """ Add data to db """
+            cursor.execute(request)
+            """ Save changes """
+            connection.commit()
+            connection.close()
 
     def buildRequestString(self, string, minutes):
         tmpString = "INSERT INTO records VALUES("
@@ -92,11 +91,15 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
         tmpString += ", '" + string + "');"
         return tmpString
 
+    def connectDB(self):
+        """ Connect to database """
+        connection = sqlite3.connect(self.databaseFilePath)
+        cursor = connection.cursor()
+        return connection, cursor
 
     def createDB(self):
         """ Create database and connect to it """
-        connection = sqlite3.connect(self.databaseFilePath)
-        cursor = connection.cursor()
+        connection, cursor = self.connectDB()
         """ Create table in database """
         cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
         connection.commit()

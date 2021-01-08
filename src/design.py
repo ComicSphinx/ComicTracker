@@ -21,10 +21,10 @@ class Ui_MainWindow(object):
         self.centralwidget.setObjectName("centralwidget")
         self.gridLayout = QtWidgets.QGridLayout(self.centralwidget)
         self.gridLayout.setObjectName("gridLayout")
-        self.todayButton = QtWidgets.QPushButton(self.centralwidget)
-        self.todayButton.setMaximumSize(QtCore.QSize(60, 100))
-        self.todayButton.setObjectName("todayButton")
-        self.gridLayout.addWidget(self.todayButton, 2, 0, 1, 1)
+        self.calendarButton = QtWidgets.QPushButton(self.centralwidget)
+        self.calendarButton.setMaximumSize(QtCore.QSize(60, 100))
+        self.calendarButton.setObjectName("calendarButton")
+        self.gridLayout.addWidget(self.calendarButton, 2, 0, 1, 1)
         self.clock = QtWidgets.QLabel(self.centralwidget)
         font = QtGui.QFont()
         font.setFamily("Lucida Sans")
@@ -62,10 +62,10 @@ class Ui_MainWindow(object):
         self.startButton.setFlat(False)
         self.startButton.setObjectName("startButton")
         self.gridLayout.addWidget(self.startButton, 2, 2, 1, 1)
-        self.calendarButton = QtWidgets.QPushButton(self.centralwidget)
-        self.calendarButton.setMaximumSize(QtCore.QSize(60, 100))
-        self.calendarButton.setObjectName("calendarButton")
-        self.gridLayout.addWidget(self.calendarButton, 2, 4, 1, 1)
+        self.todayButton = QtWidgets.QPushButton(self.centralwidget)
+        self.todayButton.setMaximumSize(QtCore.QSize(60, 100))
+        self.todayButton.setObjectName("todayButton")
+        self.gridLayout.addWidget(self.todayButton, 2, 4, 1, 1)
         MainWindow.setCentralWidget(self.centralwidget)
 
         self.retranslateUi(MainWindow)
@@ -74,7 +74,7 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "ComicTracker"))
-        self.todayButton.setText(_translate("MainWindow", "Today"))
+        self.calendarButton.setText(_translate("MainWindow", "Calendar"))
         self.clock.setText(_translate("MainWindow", "00:00:00"))
         self.whatWillYouDo.setHtml(_translate("MainWindow", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
@@ -83,14 +83,4 @@ class Ui_MainWindow(object):
 "<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-family:\'MS UI Gothic\';\"><br /></p></body></html>"))
         self.whatWillYouDo.setPlaceholderText(_translate("MainWindow", "What will you do?"))
         self.startButton.setText(_translate("MainWindow", "Start"))
-        self.calendarButton.setText(_translate("MainWindow", "Calendar"))
-
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+        self.todayButton.setText(_translate("MainWindow", "Today"))

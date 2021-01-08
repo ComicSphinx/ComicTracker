@@ -19,6 +19,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.setupUi(self)
         self.initUI()
         
+        """ Create database if it does not exist """
         if (self.verifyDatabaseExist() == False):
             self.createDB()
 
@@ -31,6 +32,26 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
             return 1
         else:
             return 0
+
+    def createDB(self):
+        """ Create database and connect to it """
+        connection, cursor = self.connectDB()
+        """ Create table in database """
+        cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
+        """ Save changes and close connection """
+        self.closeDB(connection)
+
+    def connectDB(self):
+        """ Connect to database """
+        connection = sqlite3.connect(self.databaseFilePath)
+        cursor = connection.cursor()
+        return connection, cursor
+
+    def closeDB(self, connection):
+        """ Save changes """
+        connection.commit()
+        """ Close connection """
+        connection.close()
 
     def startBtnClicked(self):
         if (self.timerIsEnabled == False):
@@ -59,9 +80,10 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
         self.whatWillYouDo.setText("")
 
     def handleData(self, hours, minutes):
-        self.addDataToDB(self.readDataFromField(), self.computeMinutes(hours, minutes))
+        self.addDataToDB(self.getDataFromLabel(), self.computeMinutes(hours, minutes))
 
-    def readDataFromField(self):
+    def getDataFromLabel(self):
+        """ Return text from whatWillYouDo (label) """
         return self.whatWillYouDo.toPlainText()
 
     def computeMinutes(self, hours, minutes):
@@ -74,14 +96,14 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     def addDataToDB(self, whatWillYouDoString, minutes):
         if (minutes > 0):
+            """ Connect to database """
             connection, cursor = self.connectDB()
             """ Build a request to the database"""
             request = self.buildRequestString(whatWillYouDoString, minutes)
             """ Add data to db """
             cursor.execute(request)
-            """ Save changes """
-            connection.commit()
-            connection.close()
+            """ Save changes and close connection """
+            self.closeDB(connection)
 
     def buildRequestString(self, string, minutes):
         tmpString = "INSERT INTO records VALUES("
@@ -90,20 +112,6 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
         tmpString += "," + str(minutes)
         tmpString += ", '" + string + "');"
         return tmpString
-
-    def connectDB(self):
-        """ Connect to database """
-        connection = sqlite3.connect(self.databaseFilePath)
-        cursor = connection.cursor()
-        return connection, cursor
-
-    def createDB(self):
-        """ Create database and connect to it """
-        connection, cursor = self.connectDB()
-        """ Create table in database """
-        cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
-        connection.commit()
-        connection.close()
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

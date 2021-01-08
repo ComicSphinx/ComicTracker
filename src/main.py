@@ -9,7 +9,7 @@ import sqlite3
 
 import design
 
-class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
     timerIsEnabled = False
     time = QTime(0,0,0)
@@ -117,7 +117,7 @@ class ComicTracker(QtWidgets.QMainWindow, design.Ui_MainWindow):
 
 def main():
     app = QtWidgets.QApplication(sys.argv)
-    window = ComicTracker()
+    window = MainWindow()
     window.show()
     app.exec_()
 

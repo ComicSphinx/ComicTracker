@@ -6,6 +6,9 @@ My home-made application. Time Tracker. This app may help you with your producti
 
 ## Getting started
 
+### Which version of python I am using to develop this app
+    python 3.9 (64-bit)
+
 ### How to run
     py main.py
     

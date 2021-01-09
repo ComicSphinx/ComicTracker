@@ -7,9 +7,9 @@ from PyQt5.QtCore import QTimer, QTime, QDate, QCalendar
 import datetime
 import sqlite3
 
-import design
+import trackerMainWindow
 
-class MainWindow(QtWidgets.QMainWindow, design.Ui_MainWindow):
+class MainWindow(QtWidgets.QMainWindow, trackerMainWindow.Ui_MainWindow):
 
     timerIsEnabled = False
     time = QTime(0,0,0)

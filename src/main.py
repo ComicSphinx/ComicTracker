@@ -4,6 +4,7 @@ import sys
 import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QTime, QDate, QCalendar
+from PyQt5.QtGui import QIcon
 import datetime
 import sqlite3
 
@@ -27,6 +28,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             self.createDB()
 
     def initUI(self):
+        self.setWindowIcon(QIcon("design/icon/icon.png"))
         self.startButton.clicked.connect(self.startBtnClicked)
         self.timer.timeout.connect(self.showTime)
 

@@ -1,14 +1,13 @@
-""" @Author: Daniil Maslov """
+# @Author: Daniil Maslov
 
 import sys
 import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QTime, QDate, QCalendar
 from PyQt5.QtGui import QIcon
-import datetime
-import sqlite3
 
 import design.mainWindowDesign
+from database.DatabaseUtilities import DatabaseUtilities as dbu
 import todayWindow
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
@@ -16,7 +15,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
     timerIsEnabled = False
     time = QTime(0,0,0)
     timer = QTimer()
-    databaseFilePath = "database/database.db"
+
 
     def __init__(self):
         super().__init__()
@@ -24,39 +23,13 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.initUI()
         
         """ Create database if it does not exist """
-        if (self.verifyDatabaseExist() == False):
-            self.createDB()
+        if (dbu.verifyDatabaseExist(dbu) == False):
+            dbu.createDB(dbu)
 
     def initUI(self):
         self.setWindowIcon(QIcon("design/icon/icon.png"))
         self.startButton.clicked.connect(self.startBtnClicked)
         self.timer.timeout.connect(self.showTime)
-
-    def verifyDatabaseExist(self):
-        if (os.path.exists(self.databaseFilePath)):
-            return 1
-        else:
-            return 0
-
-    def createDB(self):
-        """ Create database and connect to it """
-        connection, cursor = self.connectDB()
-        """ Create table in database """
-        cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
-        """ Save changes and close connection """
-        self.closeDB(connection)
-
-    def connectDB(self):
-        """ Connect to database """
-        connection = sqlite3.connect(self.databaseFilePath)
-        cursor = connection.cursor()
-        return connection, cursor
-
-    def closeDB(self, connection):
-        """ Save changes """
-        connection.commit()
-        """ Close connection """
-        connection.close()
 
     def startBtnClicked(self):
         if (self.timerIsEnabled == False):
@@ -85,7 +58,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.whatWillYouDo.setText("")
 
     def handleData(self, hours, minutes):
-        self.addDataToDB(self.getDataFromLabel(), self.computeMinutes(hours, minutes))
+        dbu.addDataToDB(dbu, self.getDataFromLabel(), self.computeMinutes(hours, minutes))
 
     def getDataFromLabel(self):
         """ Return text from whatWillYouDo (label) """
@@ -98,25 +71,6 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             tmp = hours * 60
             minutes = minutes + tmp
             return minutes
-
-    def addDataToDB(self, whatWillYouDoString, minutes):
-        if (minutes > 0):
-            """ Connect to database """
-            connection, cursor = self.connectDB()
-            """ Build a request to the database"""
-            request = self.buildRequestString(whatWillYouDoString, minutes)
-            """ Add data to db """
-            cursor.execute(request)
-            """ Save changes and close connection """
-            self.closeDB(connection)
-
-    def buildRequestString(self, string, minutes):
-        tmpString = "INSERT INTO records VALUES("
-        tmpString += str(datetime.datetime.now().month)
-        tmpString += "," + str(datetime.datetime.now().day)
-        tmpString += "," + str(minutes)
-        tmpString += ", '" + string + "');"
-        return tmpString
 
 def main():
     app = QtWidgets.QApplication(sys.argv)

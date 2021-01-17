@@ -8,7 +8,7 @@ from PyQt5.QtGui import QIcon
 
 import design.mainWindowDesign
 from database.DatabaseUtilities import DatabaseUtilities as dbu
-import todayWindow
+from TodayWindow import TodayWindow
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
@@ -29,6 +29,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
     def initUI(self):
         self.setWindowIcon(QIcon("design/icon/icon.png"))
         self.startButton.clicked.connect(self.startBtnClicked)
+        self.todayButton.clicked.connect(self.todayBtnClicked)
         self.timer.timeout.connect(self.showTime)
 
     def startBtnClicked(self):
@@ -38,6 +39,12 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         elif (self.timerIsEnabled == True):
             self.timerIsEnabled = False
             self.stopTimer()
+
+    def todayBtnClicked(self):
+        self.hide()
+        self.todayWindow = TodayWindow()
+        self.todayWindow.show()
+        
 
     def showTime(self):
         self.clock.setText(self.time.toString("hh:mm:ss"))

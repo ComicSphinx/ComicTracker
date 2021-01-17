@@ -52,8 +52,8 @@ class DatabaseUtilities():
         """ Close connection """
         connection.close()
 
-    def getTodayData(self):
+    def getDataByDay(self, day):
         connection, cursor = self.connectDB(self)
-        cursor.execute("SELECT * FROM records WHERE day == ", datetime.datetime.now().day)
+        cursor.execute("SELECT * FROM records WHERE day == ", day)
         result = cursor.fetchall()
         return result

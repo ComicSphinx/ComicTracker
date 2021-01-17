@@ -6,7 +6,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 
 ## Getting started
 
-### Which version of python I am using to develop this app
+### Which version of python I am use to develop this app
     python 3.9 (64-bit)
 
 ### How to run
@@ -19,6 +19,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 4. <b>[In process]</b> - To develop statistics diagrams ("Today" button)
 5. Possibility to view diagrams for any day of any month ("Calendar" button)
 6. Testing Stage
+7. Auto testing stage
 7. Redesign
 8. Dark / white theme
 

@@ -16,10 +16,10 @@ class DatabaseUtilities():
     def createDB(self):
         """ Create database and connect to it """
         connection, cursor = self.connectDB(self)
-        """ Create table in database """
+        """ Create table in database (month | day | minutes | record)"""
         cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
         """ Save changes and close connection """
-        self.closeDB(self, connection)
+        self.saveAndCloseDB(self, connection)
 
     def connectDB(self):
         """ Connect to database """
@@ -36,7 +36,7 @@ class DatabaseUtilities():
             """ Add data to db """
             cursor.execute(request)
             """ Save changes and close connection """
-            self.closeDB(self,connection)
+            self.saveAndCloseDB(self,connection)
 
     def buildRequestString(self, string, minutes):
         tmpString = "INSERT INTO records VALUES("
@@ -46,8 +46,14 @@ class DatabaseUtilities():
         tmpString += ", '" + string + "');"
         return tmpString
     
-    def closeDB(self, connection):
+    def saveAndCloseDB(self, connection):
         """ Save changes """
         connection.commit()
         """ Close connection """
         connection.close()
+
+    def getTodayData(self):
+        connection, cursor = self.connectDB(self)
+        cursor.execute("SELECT * FROM records WHERE day == ", datetime.datetime.now().day)
+        result = cursor.fetchall()
+        return result

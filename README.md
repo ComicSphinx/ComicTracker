@@ -12,7 +12,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 ### How to run
     py main.py
     
-## Development plan (Use-stories)
+## Development plan
 1. <b>[✓]</b> ~Design of an application~
 2. <b>[✓]</b> ~Timer~
 3. <b>[✓]</b> ~Data organization (how to save and organize data)~

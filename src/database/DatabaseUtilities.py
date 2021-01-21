@@ -1,7 +1,7 @@
 # @Author: Daniil Maslov
 import sqlite3
 import os
-import datetime
+from datetime import datetime as dt
 
 class DatabaseUtilities():
 
@@ -16,8 +16,8 @@ class DatabaseUtilities():
     def createDB(self):
         """ Create database and connect to it """
         connection, cursor = self.connectDB(self)
-        """ Create table in database (month | day | minutes | record)"""
-        cursor.execute("CREATE TABLE records (month int, day int, minutes int, record VARCHAR(60))")
+        """ Create table in database (year, month | day | minutes | record)"""
+        cursor.execute("CREATE TABLE records (year int, month int, day int, minutes int, record VARCHAR(60));")
         """ Save changes and close connection """
         self.saveAndCloseDB(self, connection)
 
@@ -40,8 +40,9 @@ class DatabaseUtilities():
 
     def buildRequestString(self, string, minutes):
         tmpString = "INSERT INTO records VALUES("
-        tmpString += str(datetime.datetime.now().month)
-        tmpString += "," + str(datetime.datetime.now().day)
+        tmpString += str(dt.now().year)
+        tmpString += "," + str(dt.now().month)
+        tmpString += "," + str(dt.now().day)
         tmpString += "," + str(minutes)
         tmpString += ", '" + string + "');"
         return tmpString
@@ -52,8 +53,11 @@ class DatabaseUtilities():
         """ Close connection """
         connection.close()
 
-    def getDataByDay(self, day):
+    def getDataByYearMonthDay(self, year, month, day):
         connection, cursor = self.connectDB(self)
-        cursor.execute("SELECT * FROM records WHERE day == ", day)
+        request = "SELECT * FROM records WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
+        cursor.execute(request)
         result = cursor.fetchall()
+        connection.close()
+        print(result)
         return result

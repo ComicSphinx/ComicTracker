@@ -1,4 +1,3 @@
-# @Author: Daniil Maslov
 # -*- coding: utf-8 -*-
 
 # Form implementation generated from reading ui file 'todayWindowDesign.ui'
@@ -16,13 +15,20 @@ class Ui_todayWindow(object):
     def setupUi(self, todayWindow):
         todayWindow.setObjectName("todayWindow")
         todayWindow.setEnabled(True)
-        todayWindow.resize(800, 600)
+        todayWindow.resize(812, 600)
         self.centralwidget = QtWidgets.QWidget(todayWindow)
         self.centralwidget.setObjectName("centralwidget")
+        self.gridLayoutWidget = QtWidgets.QWidget(self.centralwidget)
+        self.gridLayoutWidget.setGeometry(QtCore.QRect(10, 10, 791, 581))
+        self.gridLayoutWidget.setObjectName("gridLayoutWidget")
+        self.gridLayout = QtWidgets.QGridLayout(self.gridLayoutWidget)
+        self.gridLayout.setSizeConstraint(QtWidgets.QLayout.SetDefaultConstraint)
+        self.gridLayout.setContentsMargins(0, 0, 0, 0)
+        self.gridLayout.setObjectName("gridLayout")
+        self.graphicsView = QtWidgets.QGraphicsView(self.gridLayoutWidget)
+        self.graphicsView.setObjectName("graphicsView")
+        self.gridLayout.addWidget(self.graphicsView, 0, 0, 1, 1)
         todayWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(todayWindow)
-        self.statusbar.setObjectName("statusbar")
-        todayWindow.setStatusBar(self.statusbar)
 
         self.retranslateUi(todayWindow)
         QtCore.QMetaObject.connectSlotsByName(todayWindow)

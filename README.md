@@ -3,6 +3,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 
 ![Image alt](https://github.com/ComicSphinx/ComicTracker/blob/main/images/intro.JPG)
 ![Image alt](https://github.com/ComicSphinx/ComicTracker/blob/main/images/second_step.JPG)
+![Image alt](https://github.com/ComicSphinx/ComicTracker/blob/main/images/plot.JPG)
 
 ## Getting started
 

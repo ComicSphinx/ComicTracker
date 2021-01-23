@@ -27,6 +27,12 @@ class DatabaseUtilities():
         cursor = connection.cursor()
         return connection, cursor
     
+    def saveAndCloseDB(self, connection):
+        """ Save changes """
+        connection.commit()
+        """ Close connection """
+        connection.close()
+    
     def addDataToDB(self, whatWillYouDoString, minutes):
         if (minutes > 0):
             """ Connect to database """
@@ -46,12 +52,6 @@ class DatabaseUtilities():
         tmpString += "," + str(minutes)
         tmpString += ", '" + string + "');"
         return tmpString
-    
-    def saveAndCloseDB(self, connection):
-        """ Save changes """
-        connection.commit()
-        """ Close connection """
-        connection.close()
 
     def getDataByYearMonthDay(self, year, month, day):
         connection, cursor = self.connectDB(self)
@@ -59,5 +59,4 @@ class DatabaseUtilities():
         cursor.execute(request)
         result = cursor.fetchall()
         connection.close()
-        print(result)
         return result

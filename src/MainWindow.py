@@ -5,10 +5,11 @@ import os
 from PyQt5 import QtWidgets
 from PyQt5.QtCore import QTimer, QTime, QDate, QCalendar
 from PyQt5.QtGui import QIcon
+from datetime import datetime as dt
 
 import design.mainWindowDesign
 from database.DatabaseUtilities import DatabaseUtilities as dbu
-from TodayWindow import TodayWindow
+from Plot import Plot as pt
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
@@ -41,10 +42,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             self.stopTimer()
 
     def todayBtnClicked(self):
-        self.hide()
-        self.todayWindow = TodayWindow()
-        self.todayWindow.show()
-        
+        pt.showPlot(pt, dt.now().year, dt.now().month, dt.now().day)
 
     def showTime(self):
         self.clock.setText(self.time.toString("hh:mm:ss"))

@@ -38,13 +38,13 @@ class DatabaseUtilities():
             """ Connect to database """
             connection, cursor = self.connectDB(self)
             """ Build a request to the database"""
-            request = self.buildRequestString(self, whatWillYouDoString, minutes)
+            request = self.buildInsertString(self, whatWillYouDoString, minutes)
             """ Add data to db """
             cursor.execute(request)
             """ Save changes and close connection """
             self.saveAndCloseDB(self,connection)
 
-    def buildRequestString(self, string, minutes):
+    def buildInsertString(self, string, minutes):
         tmpString = "INSERT INTO records VALUES("
         tmpString += str(dt.now().year)
         tmpString += "," + str(dt.now().month)

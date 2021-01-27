@@ -1,4 +1,5 @@
 from database.DatabaseUtilities import DatabaseUtilities as dbu
+import matplotlib
 import matplotlib.pyplot as plt
 
 class Plot():
@@ -9,11 +10,13 @@ class Plot():
         """ Prepare variables to plot """
         records,minutes = self.prepareVariablesToPlot(self, data)
         """ Create plot"""
-        plt.bar(records,minutes, 0.05)
         self.configurePlot(self)
+        plt.bar(records, minutes, align='center', width=0.3)
         plt.show()
 
     def configurePlot(self):
+        matplotlib.rcParams['toolbar'] = 'none'
+        plt.subplots_adjust(bottom = 0.1, top = 1)
         plt.suptitle("Your doings")
         plt.ylabel("Minutes")
 

@@ -3,6 +3,7 @@
 import sys
 import os
 from PyQt5 import QtWidgets
+from PyQt5.QtWidgets import QMessageBox
 from PyQt5.QtCore import QTimer, QTime, QDate, QCalendar
 from PyQt5.QtGui import QIcon
 from datetime import datetime as dt
@@ -42,7 +43,16 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             self.stopTimer()
 
     def todayBtnClicked(self):
-        pt.showPlot(pt, dt.now().year, dt.now().month, dt.now().day)
+        if dbu.verifyTableEmpty(dbu, dt.now().year, dt.now().month, dt.now().day):
+            self.showMessageTableEmpty()
+        else:
+            pt.showPlot(pt, dt.now().year, dt.now().month, dt.now().day)
+
+    def showMessageTableEmpty(self):
+        message = QMessageBox()
+        message.setText("Table is empty, start working right now!")
+        message.setIcon(QMessageBox.Warning)
+        message.exec()
 
     def showTime(self):
         self.clock.setText(self.time.toString("hh:mm:ss"))

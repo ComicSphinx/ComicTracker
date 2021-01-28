@@ -60,3 +60,24 @@ class DatabaseUtilities():
         result = cursor.fetchall()
         connection.close()
         return result
+
+    def verifyTableEmpty(self, year, month, day):
+        connection, cursor = self.connectDB(self)
+        selectString = self.buildSelectString(self, year, month, day)
+        cursor.execute(selectString)
+        result = cursor.fetchall()
+        connection.close()
+        
+        if result == []:
+            return True
+        else:
+            return False
+    
+    def buildSelectString(self, year, month, day):
+        selectString = "SELECT * FROM records WHERE year = "
+        selectString += str(year)
+        selectString += " AND month = "
+        selectString += str(month)
+        selectString += " AND day = "
+        selectString += str(day)
+        return selectString

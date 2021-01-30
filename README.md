@@ -13,6 +13,25 @@ My home-made application. Time Tracker. This app may help you with your producti
 ### How to run
     py main.py
     
+### How to bundle sources into one package
+1. Previously you need to install PyInstaller
+>`pip3 install pyinstaller`
+2. Make sure that your location is ComicTracker folder
+3. Use this line to bundle sources into one package
+>`python -m PyInstaller --onefile --noconsole MainWindow.py`
+or
+`PyInstaller --onefile --noconsole MainWindow.py`
+4. Remove 'build/' directory and 'MainWindow.spec'
+>`rm -r build`
+> `rm MainWindow.spec`
+5. Enter into the 'dist/' directory
+>`cd dist`
+6. Create 'database' folder
+>`mkdir database`
+7. Now you can use move the 'dist' folder wherever you want.
+
+    
+
 ## Development plan
 1. <b>[✓]</b> ~Design of an application~
 2. <b>[✓]</b> ~Timer~

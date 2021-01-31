@@ -10,14 +10,13 @@ from datetime import datetime as dt
 
 import design.mainWindowDesign
 from database.DatabaseUtilities import DatabaseUtilities as dbu
-from Plot import Plot as pt
+from BarPlot import BarPlot as bpt
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
     timerIsEnabled = False
     time = QTime(0,0,0)
     timer = QTimer()
-
 
     def __init__(self):
         super().__init__()
@@ -46,7 +45,9 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         if dbu.verifyTableEmpty(dbu, dt.now().year, dt.now().month, dt.now().day):
             self.showMessageTableEmpty()
         else:
-            pt.showPlot(pt, dt.now().year, dt.now().month, dt.now().day)
+            data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
+            records,minutes = bpt.prepareVariablesToPlot(bpt, data)
+            bpt.showBarPlot(bpt, records, minutes)
 
     def showMessageTableEmpty(self):
         message = QMessageBox()

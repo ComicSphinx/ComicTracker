@@ -11,6 +11,7 @@ from datetime import datetime as dt
 import design.mainWindowDesign
 from database.DatabaseUtilities import DatabaseUtilities as dbu
 from BarPlot import BarPlot as bpt
+from PiePlot import PiePlot as ppt
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
@@ -48,6 +49,8 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
             records,minutes = bpt.prepareVariablesToPlot(bpt, data)
             bpt.showBarPlot(bpt, records, minutes)
+            #ppt.showPiePlot(ppt, records, minutes)
+
 
     def showMessageTableEmpty(self):
         message = QMessageBox()

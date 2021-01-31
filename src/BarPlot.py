@@ -5,7 +5,6 @@ import matplotlib.pyplot as plt
 class BarPlot():
     
     def showBarPlot(self, records, minutes):
-        """ Create plot"""
         self.configureBarPlot(self, minutes)
         plt.bar(records, minutes, align='center', width=0.3)
         plt.show()

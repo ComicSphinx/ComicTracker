@@ -28,7 +28,7 @@ or
 >`cd dist`
 6. Create 'database' folder
 >`mkdir database`
-7. Now you can use move the 'dist' folder wherever you want.
+7. Now you can move the 'dist' folder wherever you want.
 
     
 

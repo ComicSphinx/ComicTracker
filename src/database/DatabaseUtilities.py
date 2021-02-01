@@ -1,4 +1,4 @@
-# @Author: Daniil Maslov
+# @Author: Daniil Maslov (ComicSphinx)
 import sqlite3
 import os
 from datetime import datetime as dt
@@ -14,57 +14,47 @@ class DatabaseUtilities():
             return 0
     
     def createDB(self):
-        """ Create database and connect to it """
         connection, cursor = self.connectDB(self)
-        """ Create table in database (year, month | day | minutes | record)"""
         cursor.execute("CREATE TABLE records (year int, month int, day int, minutes int, record VARCHAR(60));")
-        """ Save changes and close connection """
         self.saveAndCloseDB(self, connection)
 
     def connectDB(self):
-        """ Connect to database """
         connection = sqlite3.connect(self.databaseFilePath)
         cursor = connection.cursor()
         return connection, cursor
     
     def saveAndCloseDB(self, connection):
-        """ Save changes """
         connection.commit()
-        """ Close connection """
         connection.close()
     
     def addDataToDB(self, whatWillYouDoString, minutes):
         if (minutes > 0):
-            """ Connect to database """
             connection, cursor = self.connectDB(self)
-            """ Build a request to the database"""
-            request = self.buildInsertString(self, whatWillYouDoString, minutes)
-            """ Add data to db """
-            cursor.execute(request)
-            """ Save changes and close connection """
+            insert = self.buildInsert(self, whatWillYouDoString, minutes)
+            cursor.execute(insert)
             self.saveAndCloseDB(self,connection)
 
-    def buildInsertString(self, string, minutes):
-        tmpString = "INSERT INTO records VALUES("
-        tmpString += str(dt.now().year)
-        tmpString += "," + str(dt.now().month)
-        tmpString += "," + str(dt.now().day)
-        tmpString += "," + str(minutes)
-        tmpString += ", '" + string + "');"
-        return tmpString
+    def buildInsert(self, string, minutes):
+        insert = "INSERT INTO records VALUES("
+        insert += str(dt.now().year)
+        insert += "," + str(dt.now().month)
+        insert += "," + str(dt.now().day)
+        insert += "," + str(minutes)
+        insert += ", '" + string + "');"
+        return insert
 
     def getDataByYearMonthDay(self, year, month, day):
         connection, cursor = self.connectDB(self)
-        request = "SELECT * FROM records WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
-        cursor.execute(request)
+        select = "SELECT * FROM records WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
+        cursor.execute(select)        
         result = cursor.fetchall()
         connection.close()
         return result
 
     def verifyTableEmpty(self, year, month, day):
         connection, cursor = self.connectDB(self)
-        selectString = self.buildSelectString(self, year, month, day)
-        cursor.execute(selectString)
+        select = self.buildSelect(self, year, month, day)
+        cursor.execute(select)
         result = cursor.fetchall()
         connection.close()
         
@@ -73,11 +63,19 @@ class DatabaseUtilities():
         else:
             return False
     
-    def buildSelectString(self, year, month, day):
-        selectString = "SELECT * FROM records WHERE year = "
-        selectString += str(year)
-        selectString += " AND month = "
-        selectString += str(month)
-        selectString += " AND day = "
-        selectString += str(day)
-        return selectString
+    def buildSelect(self, year, month, day):
+        select = "SELECT * FROM records WHERE year = "
+        select += str(year)
+        select += " AND month = "
+        select += str(month)
+        select += " AND day = "
+        select += str(day)
+        return select
+
+    def getMinutesRecordsByData(self, data):
+        minutes = []
+        records = []
+        for i in range(len(data)):
+            minutes.append(data[i][3])
+            records.append(data[i][4])
+        return minutes, records

@@ -1,3 +1,5 @@
+# @Author: Daniil Maslov (ComicSphinx)
+
 from database.DatabaseUtilities import DatabaseUtilities as dbu
 import matplotlib as mpl
 import matplotlib.pyplot as plt

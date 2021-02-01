@@ -1,3 +1,5 @@
+# @Author: Daniil Maslov (ComicSphinx)
+
 from database.DatabaseUtilities import DatabaseUtilities as dbu
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -14,13 +16,3 @@ class BarPlot():
         plt.yticks(minutes)
         plt.subplots_adjust(bottom = 0.1, top = 0.95)
         plt.ylabel("Minutes")
-
-    def prepareVariablesToPlot(self, data):
-        x = []
-        y = []
-        for i in range(len(data)):
-            """ Append str(record) to X """
-            x.append(data[i][4])
-            """ Append minutes to Y """
-            y.append(data[i][3])
-        return x,y

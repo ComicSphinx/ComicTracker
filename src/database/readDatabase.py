@@ -1,4 +1,4 @@
-# @Author: Daniil Maslov
+# @Author: Daniil Maslov (ComicSphinx)
 import sqlite3
 
 def main():

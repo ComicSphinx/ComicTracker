@@ -14,8 +14,12 @@ My home-made application. Time Tracker. This app may help you with your producti
     py main.py
     
 ### How to bundle sources into one package
-1. Previously you need to install PyInstaller
->`pip3 install pyinstaller`
+1. Previously you need to install PyInstaller and libs used in this project
+>`pip install pyinstaller`
+
+>`pip install PyQt5`
+
+>`pip install matplotlib`
 2. Make sure that your location is ComicTracker folder
 3. Use this line to bundle sources into one package
 >`python -m PyInstaller --onefile --noconsole MainWindow.py`

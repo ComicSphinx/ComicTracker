@@ -24,7 +24,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 3. Use this line to bundle sources into one package
 >`python -m PyInstaller --onefile --noconsole MainWindow.py`
 
->or
+  or
 
 >`PyInstaller --onefile --noconsole MainWindow.py`
 4. Remove 'build/' directory and 'MainWindow.spec'

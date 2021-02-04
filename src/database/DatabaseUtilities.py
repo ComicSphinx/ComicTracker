@@ -6,6 +6,7 @@ from datetime import datetime as dt
 class DatabaseUtilities():
 
     databaseFilePath = "database/database.db"
+    tableName = " records "
     
     def verifyDatabaseExist(self):
         if (os.path.exists(self.databaseFilePath)):
@@ -15,7 +16,7 @@ class DatabaseUtilities():
     
     def createDB(self):
         connection, cursor = self.connectDB(self)
-        cursor.execute("CREATE TABLE records (year int, month int, day int, minutes int, record VARCHAR(60));")
+        cursor.execute("CREATE TABLE"+self.tableName+"(year int, month int, day int, minutes int, record VARCHAR(60));")
         self.saveAndCloseDB(self, connection)
 
     def connectDB(self):
@@ -35,7 +36,7 @@ class DatabaseUtilities():
             self.saveAndCloseDB(self,connection)
 
     def buildInsert(self, string, minutes):
-        insert = "INSERT INTO records VALUES("
+        insert = "INSERT INTO"+self.tableName+"VALUES("
         insert += str(dt.now().year)
         insert += "," + str(dt.now().month)
         insert += "," + str(dt.now().day)
@@ -45,13 +46,13 @@ class DatabaseUtilities():
 
     def getDataByYearMonthDay(self, year, month, day):
         connection, cursor = self.connectDB(self)
-        select = "SELECT * FROM records WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
+        select = "SELECT * FROM"+self.tableName+"WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
         cursor.execute(select)        
         result = cursor.fetchall()
         connection.close()
         return result
 
-    def verifyTableEmpty(self, year, month, day):
+    def verifyTableEmptyByDate(self, year, month, day):
         connection, cursor = self.connectDB(self)
         select = self.buildSelect(self, year, month, day)
         cursor.execute(select)
@@ -64,7 +65,7 @@ class DatabaseUtilities():
             return False
     
     def buildSelect(self, year, month, day):
-        select = "SELECT * FROM records WHERE year = "
+        select = "SELECT * FROM"+self.tableName+"WHERE year = "
         select += str(year)
         select += " AND month = "
         select += str(month)

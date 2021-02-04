@@ -39,7 +39,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             self.startTimer()
         else:
             self.timer.stop()
-            self.handleData(self.time.hour(), self.time.minute())
+            dbu.addDataToDB(dbu, self.getDataFromTextEdit(self.textEdit_WhatWillYouDo), self.computeMinutes(self.time.hour(), self.time.minute()))
             self.refreshItems()
         # Reverse timerIsEnabled value
         self.timerIsEnabled = not self.timerIsEnabled
@@ -62,20 +62,16 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.btn_start.setText("Stop")
         self.textEdit_WhatWillYouDo.setEnabled(False)
         self.timer.start(1000)
-    
-    def handleData(self, hours, minutes):
-        dbu.addDataToDB(dbu, self.getDataFromLabel(), self.computeMinutes(hours, minutes))
 
-    def getDataFromLabel(self):
-        # Return text from whatWillYouDo (label)
-        return self.textEdit_WhatWillYouDo.toPlainText()
+    def getDataFromTextEdit(self, textEdit):
+        return textEdit.toPlainText()
 
     def computeMinutes(self, hours, minutes):
         if (hours == 0):
             return minutes
         elif (hours > 0):
-            tmp = hours * 60
-            minutes = minutes + tmp
+            hours = hours * 60
+            minutes = minutes + hours
             return minutes
 
     def refreshItems(self):

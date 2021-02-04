@@ -27,6 +27,7 @@ or
 `PyInstaller --onefile --noconsole MainWindow.py`
 4. Remove 'build/' directory and 'MainWindow.spec'
 >`rm -r build`
+
 > `rm MainWindow.spec`
 5. Enter into the 'dist/' directory
 >`cd dist`

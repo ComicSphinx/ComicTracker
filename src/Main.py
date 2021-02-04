@@ -24,7 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.initUI()
         
         # Create database if it does not exist
-        if (dbu.verifyDatabaseExist(dbu) == False):
+        if dbu.verifyDatabaseExist(dbu) == False:
             dbu.createDB(dbu)
 
     def initUI(self):
@@ -32,11 +32,13 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
         self.btn_start.clicked.connect(self.clicked_startBtn)
         self.btn_today.clicked.connect(self.clicked_todayBtn)
-        self.timer.timeout.connect(self.showTime)
+        self.timer.timeout.connect(self.countTime)
 
     def clicked_startBtn(self):
-        if (self.timerIsEnabled == False):
+        if self.timerIsEnabled == False:
             self.startTimer()
+            self.btn_start.setText("Stop")
+            self.textEdit_WhatWillYouDo.setEnabled(False)
         else:
             self.timer.stop()
             dbu.addDataToDB(dbu, self.getDataFromTextEdit(self.textEdit_WhatWillYouDo), self.computeMinutes(self.time.hour(), self.time.minute()))
@@ -45,7 +47,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.timerIsEnabled = not self.timerIsEnabled
 
     def clicked_todayBtn(self):
-        if dbu.verifyTableEmpty(dbu, dt.now().year, dt.now().month, dt.now().day):
+        if dbu.verifyTableEmptyByDate(dbu, dt.now().year, dt.now().month, dt.now().day):
             self.showMessageTableEmpty()
         else:
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
@@ -53,23 +55,21 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             bpt.showBarPlot(bpt, records, minutes)
             #ppt.showPiePlot(ppt, records, minutes)
     
-    def showTime(self):
+    def countTime(self):
         self.clock.setText(self.time.toString("hh:mm:ss"))
         self.time = self.time.addSecs(1)
 
     def startTimer(self):
         self.time = QTime(0,0,0)
-        self.btn_start.setText("Stop")
-        self.textEdit_WhatWillYouDo.setEnabled(False)
         self.timer.start(1000)
 
     def getDataFromTextEdit(self, textEdit):
         return textEdit.toPlainText()
 
     def computeMinutes(self, hours, minutes):
-        if (hours == 0):
+        if hours == 0:
             return minutes
-        elif (hours > 0):
+        elif hours > 0:
             hours = hours * 60
             minutes = minutes + hours
             return minutes

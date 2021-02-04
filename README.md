@@ -21,10 +21,8 @@ My home-made application. Time Tracker. This app may help you with your producti
 
 >`pip install matplotlib`
 2. Make sure that your location is ComicTracker folder
-3. Use this line to bundle sources into one package
+3. Use one of this lines to bundle sources into one package
 >`python -m PyInstaller --onefile --noconsole MainWindow.py`
-
-  or
 
 >`PyInstaller --onefile --noconsole MainWindow.py`
 4. Remove 'build/' directory and 'MainWindow.spec'

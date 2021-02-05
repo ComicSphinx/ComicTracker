@@ -28,12 +28,10 @@ class DatabaseUtilities():
         connection.commit()
         connection.close()
     
-    def addDataToDB(self, whatWillYouDoString, minutes):
-        if (minutes > 0):
-            connection, cursor = self.connectDB(self)
-            insert = self.buildInsert(self, whatWillYouDoString, minutes)
-            cursor.execute(insert)
-            self.saveAndCloseDB(self,connection)
+    def addDataToDB(self, insert):
+        connection, cursor = self.connectDB(self)
+        cursor.execute(insert)
+        self.saveAndCloseDB(self,connection)
 
     def buildInsert(self, string, minutes):
         insert = "INSERT INTO"+self.tableName+"VALUES("
@@ -59,7 +57,7 @@ class DatabaseUtilities():
         result = cursor.fetchall()
         connection.close()
         
-        if result == []:
+        if (result == []):
             return True
         else:
             return False

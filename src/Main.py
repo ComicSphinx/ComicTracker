@@ -24,7 +24,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.initUI()
         
         # Create database if it does not exist
-        if dbu.verifyDatabaseExist(dbu) == False:
+        if (dbu.verifyDatabaseExist(dbu) == False):
             dbu.createDB(dbu)
 
     def initUI(self):
@@ -35,19 +35,26 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         self.timer.timeout.connect(self.countTime)
 
     def clicked_startBtn(self):
-        if self.timerIsEnabled == False:
+        if (self.timerIsEnabled == False):
             self.startTimer()
             self.btn_start.setText("Stop")
             self.textEdit_WhatWillYouDo.setEnabled(False)
         else:
             self.timer.stop()
-            dbu.addDataToDB(dbu, self.getDataFromTextEdit(self.textEdit_WhatWillYouDo), self.computeMinutes(self.time.hour(), self.time.minute()))
+
+            minutes = self.computeMinutes(self.time.hour(), self.time.minute())
+            record = self.getDataFromTextEdit(self.textEdit_WhatWillYouDo)
+
+            if (minutes > 0):
+                insert = dbu.buildInsert(dbu, record, minutes)
+                dbu.addDataToDB(dbu, insert)
+                
             self.refreshItems()
         # Reverse timerIsEnabled value
         self.timerIsEnabled = not self.timerIsEnabled
 
     def clicked_todayBtn(self):
-        if dbu.verifyTableEmptyByDate(dbu, dt.now().year, dt.now().month, dt.now().day):
+        if (dbu.verifyTableEmptyByDate(dbu, dt.now().year, dt.now().month, dt.now().day)):
             self.showMessageTableEmpty()
         else:
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
@@ -67,9 +74,9 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         return textEdit.toPlainText()
 
     def computeMinutes(self, hours, minutes):
-        if hours == 0:
+        if (hours == 0):
             return minutes
-        elif hours > 0:
+        else:
             hours = hours * 60
             minutes = minutes + hours
             return minutes

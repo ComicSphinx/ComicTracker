@@ -7,7 +7,7 @@ from datetime import datetime as dt
 
 class PiePlot():
     
-    str_sleeping = "'Sleeping'"
+    str_sleeping = "Sleeping"
     
     def showPiePlot(self, records, minutes):
         self.configurePiePlot(self)

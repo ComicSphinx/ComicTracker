@@ -87,9 +87,9 @@ class DatabaseUtilities():
         select += str(month)
         select += " AND day = "
         select += str(day)
-        select += " AND record = "
-        select += str(string)
-        select += ";"
+        select += " AND record = '"
+        select += string
+        select += "';"
         cursor.execute(select)
         result = cursor.fetchall()
         connection.close()

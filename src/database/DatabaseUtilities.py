@@ -78,3 +78,23 @@ class DatabaseUtilities():
             minutes.append(data[i][3])
             records.append(data[i][4])
         return minutes, records
+
+    def dataIsNotExist(self, year, month, day, string):
+        connection, cursor = self.connectDB(self)
+        select = "SELECT * FROM"+self.tableName+"WHERE year = "
+        select += str(year)
+        select += " AND month = "
+        select += str(month)
+        select += " AND day = "
+        select += str(day)
+        select += " AND record = "
+        select += str(string)
+        select += ";"
+        cursor.execute(select)
+        result = cursor.fetchall()
+        connection.close()
+        
+        if (result == []):
+            return 1
+        else:
+            return 0

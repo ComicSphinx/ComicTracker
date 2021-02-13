@@ -59,8 +59,8 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
         else:
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
             minutes,records = dbu.getMinutesRecordsByData(bpt, data)
-            bpt.showBarPlot(bpt, records, minutes)
-            #ppt.showPiePlot(ppt, records, minutes)
+            #bpt.showBarPlot(bpt, records, minutes)
+            ppt.showPiePlot(ppt, records, minutes)
     
     def countTime(self):
         self.clock.setText(self.time.toString("hh:mm:ss"))

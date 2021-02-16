@@ -47,14 +47,15 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
             if (minutes > 0):
                 insert = dbu.buildInsert(dbu, record, minutes)
-                dbu.addDataToDB(dbu, insert)
+                dbu.executeCommand(dbu, insert)
                 
             self.refreshItems()
         # Reverse timerIsEnabled value
         self.timerIsEnabled = not self.timerIsEnabled
 
     def clicked_todayBtn(self):
-        if (dbu.verifyTableEmptyByDate(dbu, dt.now().year, dt.now().month, dt.now().day)):
+        select = dbu.buildSelect(dbu, dt.now().year, dt.now().month, dt.now().day)
+        if (dbu.dataIsNotExist(dbu, select)):
             self.showMessageTableEmpty()
         else:
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)

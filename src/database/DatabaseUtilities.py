@@ -28,10 +28,12 @@ class DatabaseUtilities():
         connection.commit()
         connection.close()
     
-    def addDataToDB(self, insert):
+    def executeCommand(self, insert):
         connection, cursor = self.connectDB(self)
         cursor.execute(insert)
+        output = cursor.fetchall()
         self.saveAndCloseDB(self,connection)
+        return output
 
     def buildInsert(self, string, minutes):
         insert = "INSERT INTO"+self.tableName+"VALUES("
@@ -46,29 +48,35 @@ class DatabaseUtilities():
         connection, cursor = self.connectDB(self)
         select = "SELECT * FROM"+self.tableName+"WHERE year = "+str(year)+" AND month = "+str(month)+" AND day = "+str(day)+";"
         cursor.execute(select)        
-        result = cursor.fetchall()
+        output = cursor.fetchall()
         connection.close()
-        return result
+        return output
 
-    def verifyTableEmptyByDate(self, year, month, day):
+    def dataIsNotExist(self, select):
         connection, cursor = self.connectDB(self)
-        select = self.buildSelect(self, year, month, day)
         cursor.execute(select)
-        result = cursor.fetchall()
+        output = cursor.fetchall()
         connection.close()
         
-        if (result == []):
+        if (output == []):
             return True
         else:
             return False
     
-    def buildSelect(self, year, month, day):
-        select = "SELECT * FROM"+self.tableName+"WHERE year = "
-        select += str(year)
-        select += " AND month = "
-        select += str(month)
-        select += " AND day = "
-        select += str(day)
+    def buildSelect(self, year = None, month = None, day = None, string = None):
+        select = "SELECT * FROM"+self.tableName
+        if year != None:
+            select += "WHERE year = "
+            select += str(year)
+        if month != None:
+            select += " AND month = "
+            select += str(month)
+        if day != None:
+            select += " AND day = "
+            select += str(day)
+        if string != None:
+            select += " AND record = '"
+            select += string + "';"
         return select
 
     def getMinutesRecordsByData(self, data):
@@ -78,23 +86,3 @@ class DatabaseUtilities():
             minutes.append(data[i][3])
             records.append(data[i][4])
         return minutes, records
-
-    def dataIsNotExist(self, year, month, day, string):
-        connection, cursor = self.connectDB(self)
-        select = "SELECT * FROM"+self.tableName+"WHERE year = "
-        select += str(year)
-        select += " AND month = "
-        select += str(month)
-        select += " AND day = "
-        select += str(day)
-        select += " AND record = '"
-        select += string
-        select += "';"
-        cursor.execute(select)
-        result = cursor.fetchall()
-        connection.close()
-        
-        if (result == []):
-            return 1
-        else:
-            return 0

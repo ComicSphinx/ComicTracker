@@ -31,8 +31,10 @@ class PiePlot():
 
     def configurePiePlot(self, minutes):
         mpl.rcParams['toolbar'] = 'none'
-        if (dbu.dataIsNotExist(dbu, dt.now().year, dt.now().month, dt.now().day, self.str_sleeping)):
+        select = dbu.buildSelect(dbu, dt.now().year, dt.now().month, dt.now().day, self.str_sleeping)
+        if (dbu.dataIsNotExist(dbu, select)):
             self.addSleep(self)
-        if (dbu.dataIsNotExist(dbu, dt.now().year, dt.now().month, dt.now().day, self.str_unknown)):
+        select = dbu.buildSelect(dbu, dt.now().year, dt.now().month, dt.now().day, self.str_unknown)
+        if (dbu.dataIsNotExist(dbu, select)):
             self.addUnknown(self, minutes)
         

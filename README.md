@@ -41,7 +41,7 @@ My home-made application. Time Tracker. This app may help you with your producti
 1. <b>[✓]</b> ~Design of an application~
 2. <b>[✓]</b> ~Timer~
 3. <b>[✓]</b> ~Data organization (how to save and organize data)~
-4. <b>[✓]</b> Statistics diagrams ("Today" button)
+4. <b>[✓]</b> ~Statistics diagrams ("Today" button)~
 5. <b>[In process]</b> Develop auto-tests
 6. Possibility to view diagrams for any day of any month ("Calendar" button)
 7. Testing Stage

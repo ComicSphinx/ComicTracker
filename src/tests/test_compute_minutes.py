@@ -1,3 +1,4 @@
+# @Author: Daniil Maslov (@ComicSphinx)
 import sys
 sys.path.insert(0, '../') 
 from Main import MainWindow

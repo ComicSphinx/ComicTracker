@@ -3,3 +3,4 @@ dir
 __pycache__/
 .vscode/
 src/database/database.db
+plan.md

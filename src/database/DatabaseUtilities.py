@@ -1,15 +1,16 @@
 # @Author: Daniil Maslov (ComicSphinx)
 import sqlite3
 import os
+import sys
+
 from datetime import datetime as dt
 
 class DatabaseUtilities():
-
-    databaseFilePath = "database/database.db"
+    database_file_path = "database/database.db"
     tableName = " records "
     
     def verifyDatabaseExist(self):
-        if (os.path.exists(self.databaseFilePath)):
+        if (os.path.exists(self.database_file_path)):
             return 1
         else:
             return 0
@@ -20,7 +21,7 @@ class DatabaseUtilities():
         self.saveAndCloseDB(self, connection)
 
     def connectDB(self):
-        connection = sqlite3.connect(self.databaseFilePath)
+        connection = sqlite3.connect(self.database_file_path)
         cursor = connection.cursor()
         return connection, cursor
     

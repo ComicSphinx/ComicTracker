@@ -1,10 +1,10 @@
 # @Author: Daniil Maslov (ComicSphinx)
 
-from database.DatabaseUtilities import DatabaseUtilities as dbu
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from Plot import Plot
 
-class BarPlot():
+class BarPlot(Plot):
     
     def showBarPlot(self, records, minutes):
         self.configureBarPlot(self, minutes)
@@ -16,3 +16,4 @@ class BarPlot():
         plt.yticks(minutes)
         plt.subplots_adjust(bottom = 0.1, top = 0.95)
         plt.ylabel("Minutes")
+        self.addData(self, minutes)

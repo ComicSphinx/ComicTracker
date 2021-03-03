@@ -8,9 +8,10 @@ from PyQt5.QtGui import QIcon
 from datetime import datetime as dt
 
 import design.mainWindowDesign
-from database.DatabaseUtilities import DatabaseUtilities as dbu
-from BarPlot import BarPlot as bpt
+#from BarPlot import BarPlot as bpt
 from PiePlot import PiePlot as ppt
+
+from database.DatabaseUtilities import DatabaseUtilities as dbu
 
 class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
 
@@ -59,7 +60,7 @@ class MainWindow(QtWidgets.QMainWindow, design.mainWindowDesign.Ui_MainWindow):
             self.showMessageTableEmpty()
         else:
             data = dbu.getDataByYearMonthDay(dbu, dt.now().year, dt.now().month, dt.now().day)
-            minutes,records = dbu.getMinutesRecordsByData(bpt, data)
+            minutes,records = dbu.getMinutesRecordsByData(dbu, data)
             #bpt.showBarPlot(bpt, records, minutes)
             ppt.showPiePlot(ppt, records, minutes)
     

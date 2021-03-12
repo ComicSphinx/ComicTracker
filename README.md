@@ -43,8 +43,8 @@ My home-made application. Time Tracker. This app may help you with your producti
 3. <b>[✓]</b> ~Data organization (how to save and organize data)~
 4. <b>[✓]</b> ~Statistics diagrams ("Today" button)~
 5. <b>[In process]</b> Develop auto-tests
-6. Possibility to view diagrams for any day of any month ("Calendar" button)
-7. Testing Stage
+6. <b>[In process]</b> Testing Stage
+7. Possibility to view diagrams for any day of any month ("Calendar" button)
 
 ## Author
   - **Daniil Maslov** -

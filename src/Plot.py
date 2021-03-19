@@ -1,3 +1,4 @@
+# @Author: Daniil Maslov (@ComicSphinx)
 from database.DatabaseUtilities import DatabaseUtilities as dbu
 from datetime import datetime as dt
 

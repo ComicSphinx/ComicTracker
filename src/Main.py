@@ -1,4 +1,4 @@
-# @Author: Daniil Maslov
+# @Author: Daniil Maslov (@ComicSphinx)
 
 import sys
 from PyQt5 import QtWidgets
